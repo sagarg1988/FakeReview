@@ -2,15 +2,55 @@
 {% block title %} FakeReview {% endblock title%}
 {% block content %}
     <div class="jumbotron">
-        <h1 class="display-4">Welcome, {{user.first_name.title|default:'Guest'}}</h1>
-        <p class="lead">
-            This is Home Page which will have the all the reviews listed. You can add the review from this page(yet to be added)
-            In this page you will a button to detect all the fake review
-        </p>
+        <h1 class="display-4">Welcome {{user.username.title|default:'Guest'}}</h1>
+        <h3>
+            Review List:
+        </h3>
         <hr class="my-4">
         <p class="lead">
             {% if user.is_authenticated %}
+        <div class="card card-body">
+         <table class="table table-bordered">
+           <tr>
+             <th>Product</th>
+             <th>Comment</th>
+             <th>Rating</th>
+             <th>User</th>
+           </tr>
+           {% for x in all_review %}
+           <tr>
+               <td>{{x.product}}</td>
+               <td>{{x.comment}}</td>
+               <td>{{x.rating}}</td>
+               <td>{{x.user.username}}</td>
+           {% endfor %}
+           </tr>
+        </table>
+        {% if all_review.has_other_pages %}
 
+  <ul class="pagination">
+    {% if all_review.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ all_review.previous_page_number }}" >&laquo;</a></li>
+    {% else %}
+      <li class="disabled" class="page-item"><span><a class="page-link">&laquo;</a></span></li>
+    {% endif %}
+    {% for i in all_review.paginator.page_range %}
+      {% if all_review.number == i %}
+        <li class="active" class="page-item"><span><a class="page-link">{{ i }}</a> <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if all_review.has_next %}
+      <li class="page-item" class="page-item"><a class="page-link" href="?page={{ all_review.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item"><span><a class="page-link"> &raquo;</a></span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+        </div>
+            <br>
+            <a class="btn btn-primary btn-lg" href="{% url 'add_review' %}" role="button">Add Review</a>
             {% else %}
                 Please <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Sign in</a>
             {% endif %}

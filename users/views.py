@@ -5,12 +5,29 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from reviews.models import Review
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
 
 def home(request):
-    return render(request, 'users/home.html')
+    my_data = Review.objects.all()  # for all the records
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(my_data, 10)
+    try:
+        my_data = paginator.page(page)
+    except PageNotAnInteger:
+        my_data = paginator.page(1)
+    except EmptyPage:
+        my_data = paginator.page(paginator.num_pages)
+    context = {
+
+        'all_review': my_data,
+    }
+    return render(request, 'users/home.html', context)
 
 
 class RegisterView(View):
