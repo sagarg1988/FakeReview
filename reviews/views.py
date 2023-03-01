@@ -26,10 +26,10 @@ def product_list(request):
     return render(request=request, template_name="product_list.html", context={'products': products})
 
 def contactus(request):
-    return render(request=request, template_name="product_list.html")
+    return render(request=request, template_name="contactus.html")
 
 def services(request):
-    return render(request=request, template_name="product_list.html")
+    return render(request=request, template_name="services.html")
 
 def aboutus(request):
-    return render(request=request, template_name="product_list.html")
+    return render(request=request, template_name="aboutus.html")
