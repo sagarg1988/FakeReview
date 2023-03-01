@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-# Create your models here.
 class Product(models.Model):
     name=models.CharField(max_length=300)
     typ=models.CharField(max_length=300)
@@ -12,7 +11,9 @@ class Product(models.Model):
     release_date=models.DateField()
     description=models.TextField(max_length=5000)
     averagerating=models.FloatField(default=0)
-    image = models.URLField(default=None, null=True)
+    # image = models.URLField(default=None, null=True)
+    image = models.ImageField(default='default.jpg', upload_to='product_images/')
+
 
 
     def __str__(self):
