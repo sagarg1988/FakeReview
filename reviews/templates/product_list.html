@@ -10,12 +10,13 @@
 
 
                         {% for product in products %}
-                        <h1> {{product.name}} </h1>
-                    <img src="{{ product.image.url }}" width="500px"/>
 
-
+                        <h3> {{product.name}} </h3>
+                        <p> {{product.description}} </p>
+                    <img src="{{ product.image.url }}" width="300px"  height="300px" class="img-thumbnail" alt="product list"> <br>
+                   <p class="pl-5 ml-5" >
+                       <a href="{% url 'add_review' product.id %}" class="btn btn-primary mt-3 mb-3 ml-2 text-center"> Add </a> </p>
                         {% endfor %}
-
 
                     </div>
                 </div>

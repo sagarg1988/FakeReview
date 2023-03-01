@@ -5,21 +5,30 @@ from reviews.forms import MovieForm
 from reviews.models import Review, Product
 
 
-def add_review(request):
+def add_review(request, id):
     if request.method == "POST":
-        movie_form = MovieForm(request.POST, request.FILES)
-        if movie_form.is_valid():
-            movie_form.product = Product.object.get(id=1)
-            movie_form.save()
+        review_form = MovieForm(request.POST, request.FILES)
+        if review_form.is_valid():
+            review_form = review_form.save(commit=False)
+            pid = Product.objects.get(id=id)
+            review_form.product = pid
+
+            review_form.user_id = request.user.id
+            review_form.save()
             # messages.success(request, ('Your movie was successfully added!'))
         else:
             messages.error(request, 'Error in saving form.')
 
-        return redirect("users-home")
-    movie_form = MovieForm()
-    movies = Review.objects.all()
-    return render(request=request, template_name="review.html", context={'form': movie_form, 'movies': movies})
+        return redirect("product_list")
+    review_form = MovieForm()
+    product = Product.objects.get(id=id)
+    return render(request=request, template_name="review.html", context={'form': review_form, 'product': product, 'product_id': id})
 
+
+def my_review(request):
+    review = Review.objects.filter(user=request.user)
+    return render(request=request, template_name="myreview.html",
+                  context={ 'review': review})
 
 def product_list(request):
     products = Product.objects.all()

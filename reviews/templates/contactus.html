@@ -54,7 +54,39 @@
             </button>
           </div>
         {% endif %}
-        {% block content %}{% endblock %}
+        {% block content %}
+
+
+<div class="container">
+  <h4 class="mt-3">Get in touch with us </h4>
+  <form >
+      <div class="form-group">
+      <label for="firstname">First Name:</label>
+    <input type="text" class="form-control" id="firstname" placeholder="Enter first name" name="firstname">
+    </div>
+      <div class="form-group">
+      <label for="lastname">Last Name:</label>
+      <input type="text" class="form-control" id="lastname" placeholder="Enter last name" name="lastname">
+    </div>
+      <div class="form-group">
+      <label for="number">Mobile No.:</label>
+      <input type="number" class="form-control" id="mobileno" placeholder="Enter mobile no" name="mobile no">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="message">Message:</label>
+      <input type="message" class="form-control" id="pwd" placeholder="Enter Message" name="message">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+
+        {% endblock %}
       </div>
     </div>
   </div>

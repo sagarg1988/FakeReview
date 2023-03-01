@@ -9,7 +9,7 @@
                 <div class="col-lg-5">
                     <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
                         <div class="card-header justify-content-center">
-                          <h3 class="font-weight-light my-1 text-center">Add Review</h3>
+                          <h3 class="font-weight-light my-1 text-center">My Reviews</h3>
                         </div>
                         {% if form.errors %}
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -23,23 +23,29 @@
                                 </button>
                             </div>
                         {% endif %}
-                        <div class="card-body">
-                            <h1> {{product.name}} </h1>
-                        <img src="{{ product.image.url }}" width="500px"/>
-                            Description: <p> {{product.description}} </p><br>
-                            Cost: <p> {{product.cost}} </p>
-                            Release Date: <p> {{product.release_date}} </p>
-                            Size: <p> {{product.size}} </p>
-                            Type: <p> {{product.typ}} </p>
+                        {% for re in review %}
 
-                            <form method="POST">
-                                {% csrf_token %}
-
-                                {{ form|crispy }}
-                            <button class="btn btn-primary" type="submit">Add Review</button>
-                        <a class="btn btn-primary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>
-                            </form>
-                        </div>
+                        <div class="container">
+                              <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Comments</th>
+                                    <th>Ratings</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>{{ re }}</strong></td>
+                                    <td><strong>{{ re }}</strong></td>
+                                </tr>
+<!--                                 <tr>-->
+<!--                                    <td><strong>{{ re }}</strong></td>-->
+<!--                                    <td><strong>{{ re }}</strong></td>-->
+<!--                                </tr>-->
+                                </tbody>
+                              </table>
+                            </div>
+                        {% endfor %}
 
                     </div>
                 </div>

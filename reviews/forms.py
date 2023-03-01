@@ -5,7 +5,7 @@ class MovieForm(forms.ModelForm):
 
     class Meta:
         model = Review
-        fields = ('product', 'user', 'comment', 'rating')
+        fields = ('comment', 'rating')
 
 
 
